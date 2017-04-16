@@ -21,7 +21,7 @@ angular.module('tournament').controller('HomeCtrl',
             this.teamO = teamO;
             this.scoreO = scoreO;
             this.scoreOpoints = scoreOpoints;
-            this.scoreOgoal = scoreOgoals;
+            this.scoreOgoals = scoreOgoals;
 
         }
 
@@ -31,13 +31,19 @@ angular.module('tournament').controller('HomeCtrl',
         _.forEach(rrArr, function(group){
             _.forEach(group, function(game){
                 games.push(new Game(
-                    $scope.teams[game[0-1]],
+                    $scope.teams[game[0]-1],
                     0,0,0,
-                    $scope.teams[game[1-1]],
+                    $scope.teams[game[1]-1],
                     0,0,0
-                ))
-            })
-        })
+                ));
+            });
+        });
+
+        $scope.games = games;
+
+        $scope.loadGame(idx){
+            console.log('load game')
+        }
 
         console.log('games ', games);
 
