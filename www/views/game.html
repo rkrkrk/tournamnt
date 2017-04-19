@@ -1,28 +1,152 @@
 <div layout="column" ng-cloak>
-  <md-toolbar class="md-theme-light">
-    <div class="md-toolbar-tools">
-      <h2 class="md-flex">Tournament Home</h2>
-    </div>
-  </md-toolbar>
-
-  <md-content flex layout-padding>
-      <md-list>
-      <md-list-item class="md-1-line" ng-repeat="name in tournaments track by $index">
-            <div class="md-list-item-text">
-            {{name}}
-            <md-divider ng-if="!$last"></md-divider>
-          </div>
-        </md-list-item>
-    </md-list>
-
-    <div ng-repeat="game in games track by $index">
-      <div ng-click="loadGame($index)">
-      {{game.teamH}} {{game.scoreHgoals}}:{{game.scoreHpoints}} - 
-      {{game.teamO}} {{game.scoreOgoals}}:{{game.scoreOpoints}}
-    </div>
-    </div>
+  <md-toolbar class="md-hue-0">
+      <div class="md-toolbar-tools">
   
-       
+
+        <h2 flex md-truncate>Game #1</h2>
+
+
+        <md-button class="md-raised" aria-label="Learn More" ng-click="saveScore()">
+          SAVE
+        </md-button>
+      </div>
+    </md-toolbar>
+
+  <md-content flex >
+
+    <div class="demo-md-panel-content" md-colors="{backgroundColor: 'default-primary-700'}">
+
+      <div layout="row" layout-align="center center">
+        <h3>{{game.teamH}} score</h3>
+      </div>
+
+      <div layout="row" layout-align="center center">
+
+        <div flex>
+          <div layout="column" layout-align="center end">
+            <div flex>
+              <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,0,1)">
+                <md-icon md-svg-src="/resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+              </md-button>
+            </div>
+            <div flex>
+              <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,0,-1)">
+                <md-icon md-svg-src="/resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+              </md-button>
+            </div>
+          </div>
+        </div>
+
+        <div flex >
+          <div layout="column" layout-align="center center">
+            <md-button class="md-hue-5" md-colors="{background: 'green'}"aria-label="score" md-no-ink >
+                {{game.scoreHgoals}}
+            </md-button>
+            GOALS
+            </div>
+        </div>
+
+        
+          <div flex="5" >
+            </div>
+        
+
+        <div flex layout-align="center center">
+          <div layout="column" layout-align="center center">
+            <md-button class="md-hue-5" md-colors="{background: 'green'}"aria-label="score" md-no-ink ng-click="addPoint(0)">
+                {{game.scoreHpoints}}
+            </md-button>
+            POINTS
+          </div>
+        </div>
+
+          <div flex>
+            <div layout="column" layout-align="center start">
+              <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,1,1)">
+                  <md-icon md-svg-src="/resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+              </div>
+              <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,1,-1)">
+                  <md-icon md-svg-src="/resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      </div>
+
+
+     <div class="demo-md-panel-content" md-colors="{backgroundColor: 'default-primary-300'}">
+
+    <div layout="row" layout-align="center center">
+        <h3>{{game.teamO}} score</h3>
+      </div>
+
+      <div layout="row" layout-align="center center">
+
+        <div flex>
+          <div layout="column" layout-align="center end">
+            <div flex>
+              <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,0,1)">
+                <md-icon md-svg-src="/resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+              </md-button>
+            </div>
+            <div flex>
+              <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,0,-1)">
+                <md-icon md-svg-src="/resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+              </md-button>
+            </div>
+          </div>
+        </div>
+
+        <div flex >
+          <div layout="column" layout-align="center center">
+            <md-button class="md-hue-5" md-colors="{background: 'green'}"aria-label="score" md-no-ink >
+                {{game.scoreOgoals}}
+            </md-button>
+            GOALS
+            </div>
+        </div>
+
+        
+          <div flex="5" >
+            </div>
+        
+
+        <div flex layout-align="center center">
+          <div layout="column" layout-align="center center">
+            <md-button class="md-hue-5" md-colors="{background: 'green'}"aria-label="score" md-no-ink>
+                {{game.scoreOpoints}}
+            </md-button>
+            POINTS
+          </div>
+        </div>
+
+          <div flex>
+            <div layout="column" layout-align="center start">
+              <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,1,1)">
+                  <md-icon md-svg-src="/resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+              </div>
+              <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,1,-1)">
+                  <md-icon md-svg-src="/resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+
+
+  
+      
 
   </md-content>
 

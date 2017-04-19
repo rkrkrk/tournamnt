@@ -4,7 +4,7 @@
  * are retrieved from here so no additional REST call is needed
  */
 
- angular.module('citiClientOnboarding').factory('TournamentStore', function () {
+ angular.module('tournament').factory('TournamentStore', function () {
     var currentTournament;
 
 
@@ -15,7 +15,7 @@
     };
 
     var getCurrentTournament = function () {
-        return tournament;
+        return currentTournament;
     };
 
 
