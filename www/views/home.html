@@ -50,12 +50,25 @@
 
 
 
-    <div ng-repeat="game in games track by $index">
+    <!--<div ng-repeat="game in games track by $index">
       <div ng-click="loadGame($index)">
       {{game.teamH}} {{game.scoreHgoals}}:{{game.scoreHpoints}} - 
       {{game.teamO}} {{game.scoreOgoals}}:{{game.scoreOpoints}}
       </div>
-    </div>
+    </div>-->
+
+    <md-list>
+ 
+        <md-list-item class="md-1-line" ng-click="showGameDialog($event, $index)" ng-repeat="game in games track by $index">
+            <md-checkbox  ng-model="game.active" ng-change="updateTable()"></md-checkbox>
+            <div class="md-list-item-text md-body-1">
+                {{game.teamH}}: {{game.scoreHgoals}}-{{game.scoreHpoints}}({{game.scoreHgoals*3 + game.scoreHpoints}}) &nbsp;&nbsp;
+                {{game.teamO}}: {{game.scoreOgoals}}-{{game.scoreOpoints}}({{game.scoreOgoals*3 + game.scoreOpoints}})
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+
+    </md-list>
   
        
 

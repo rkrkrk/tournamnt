@@ -28,18 +28,4 @@ angular.module('tournament').controller('GameCtrl',
             }
         }
 
-        $scope.saveScore = function(){
-            $scope.game.active=true;
-            TournamentStore.saveCurrentTournament(games);
-            $location.path( '/');
-        }
-        
-
-
-
-
-
-
-
-
 }]);

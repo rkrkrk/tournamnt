@@ -15,3 +15,21 @@ table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2)
 md-icon {
     min-width: 20px;
 }
+
+.score {
+    margin: 0 1em;
+}
+
+.score input {
+    text-align: center;
+}
+
+md-checkbox {
+  margin: 8px;
+  cursor: pointer;
+  padding-left: 18px;
+  padding-right: 0;
+  line-height: 26px;
+  min-width: 18px;
+  min-height: 18px;
+}

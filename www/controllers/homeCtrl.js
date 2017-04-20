@@ -2,8 +2,8 @@
 
 
 angular.module('tournament').controller('HomeCtrl',
-    ['$scope', '$location', 'Roundrobin' , 'TournamentStore',
-    function($scope, $location, Roundrobin, TournamentStore) {
+    ['$scope', '$location', 'Roundrobin' , 'TournamentStore', '$mdDialog',
+    function($scope, $location, Roundrobin, TournamentStore, $mdDialog) {
         console.log('in home controller')
         $scope.tournaments = ['Feile1', 'Feile2','Feile3'];
         var pointsForWin = 2;
@@ -73,15 +73,14 @@ angular.module('tournament').controller('HomeCtrl',
                             }
                             team.for = team.for + game.scoreHgoals * 3 + game.scoreHpoints;
                             team.against = team.against + game.scoreOgoals * 3 + game.scoreOpoints;
-                            team.played++;
                             team.diff = team.for - team.against;
                         } else if (game.teamO===team.name){
                             team.played++;
                             result = getResult(game);
-                            if(result===0){
+                            if(result===1){
                                 team.won++;
                                 team.points = team.points + pointsForWin;
-                            } else if(result===1){
+                            } else if(result===0){
                                 team.lost++;
                             } else {
                                 team.drew++;
@@ -89,7 +88,6 @@ angular.module('tournament').controller('HomeCtrl',
                             }
                             team.for = team.for + game.scoreOgoals * 3 + game.scoreOpoints;
                             team.against = team.against + game.scoreHgoals * 3 + game.scoreHpoints;
-                            team.played++;
                             team.diff = team.for - team.against;
                         }
 
@@ -98,7 +96,7 @@ angular.module('tournament').controller('HomeCtrl',
                 }
 
             })
-            $scope.teamsTable = teamsTable;
+            $scope.teamsTable = _.orderBy(teamsTable, ['points', 'diff', 'name'], ['desc', 'desc', 'asc']);
         }
 
        var teams = ["aaa", "bbb", "ccc", "ddd"]
@@ -129,42 +127,37 @@ angular.module('tournament').controller('HomeCtrl',
 
         makeTable($scope.games, teams);
 
+        $scope.showGameDialog = function(ev, idx) {
+            $scope.gameIndex = idx;
+            $mdDialog.show({
+            controller: 'GameDialogCtrl',
+            templateUrl: 'views/dialogGame.html',
+            parent: angular.element(document.body),
+            locals: {
+                gameIdx: $scope.gameIndex
+            },
+            targetEvent: ev,
+            clickOutsideToClose:false,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
+            .then(function(game) {
+                console.log('game modal saved');
+                makeTable($scope.games, teams);
+            }, function() {
+                console.log('game modal concelled');
+            });
+        };
         
-
-    //     var teamsTable = [];
-    //     var team1 = {}
-    //     team1.name = "aaa";
-    //     team1.played = 0;
-    //     team1.won = 0;
-    //     team1.drew = 0;
-    //     team1.lost = 0;
-    //     team1.for = 0;
-    //     team1.against = 0;
-    //     team1.played = 0;
-    //     team1.diff = 0;
-    //     team1.points = 0;
-
-    //     teamsTable.push(_.clone(team1));
-    //     team1.name = "bbb";
-    //     team1.played = 1;
-    //     teamsTable.push(_.clone(team1));
-    //     team1.name = "ccc";
-    //     team1.played = 2;
-    //     teamsTable.push(_.clone(team1));
-    //     team1.name = "ddd";
-    //     team1.played = 3;
-    //     teamsTable.push(_.clone(team1));
-    //   $scope.teamsTable = teamsTable;
-
-
-        
-
-
         // played won lost draw for against diff ptslinke
 
         $scope.loadGame = function(idx){
             console.log('load game');
             $location.path( '/game/'+idx);
+        }
+
+         $scope.updateTable = function(){
+            TournamentStore.saveCurrentTournament(games);
+            makeTable($scope.games, teams);
         }
 
 
