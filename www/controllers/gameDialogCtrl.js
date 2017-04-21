@@ -16,18 +16,18 @@ angular.module('tournament').controller('GameDialogCtrl',
             game.scoreOgoals = 0;
             game.active = false;
             TournamentStore.saveCurrentTournament(games);
-            $mdDialog.hide();
+            $mdDialog.hide(games);
         };
 
         $scope.cancel = function() {
             game.active = false;
-            $mdDialog.cancel(game);
+            $mdDialog.cancel();
         };
 
         $scope.save = function() {
             game.active = true;
             TournamentStore.saveCurrentTournament(games);
-            $mdDialog.hide();
+            $mdDialog.hide(games);
         };
 
         $scope.modScore = function(team, type, num){

@@ -1,0 +1,65 @@
+<div layout="column" ng-cloak>
+  <md-toolbar class="md-theme-light">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Create New Tournament</h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding >
+
+        <div layout="row" >
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Tournament Name</label>
+                <input ng-model="tournament.tournamentName">
+            </md-input-container>
+
+            <md-input-container>
+                <label>Enter date</label>
+                <md-datepicker ng-model="tournament.tournamentDate"></md-datepicker>
+            </md-input-container>
+        </div>
+
+        <div layout="row" layout-wrap class="create-page">
+            <md-input-container ng-repeat="team in tournament.teams track by $index" flex-gt-sm>
+                <label>Team #{{$index+1}}</label>
+                <input ng-model="tournament.teams[$index]">
+                <md-icon md-svg-src="resources/ic_delete_black_24px.svg" ng-click="removeTeam($index)"></md-icon>
+            </md-input-container>
+        </div>
+        
+        
+
+
+    <div layout="row" >
+        <form ng-submit="addTeam()">
+            <md-input-container md-no-float>
+                <label>add new team</label>
+                <input type="text" ng-model="inputTeam" ng-blur="addTeam()" >
+            </md-input-container>
+        </form>
+
+        <md-input-container md-no-float>
+            <label>Teams</label>
+            <md-select ng-model="selectedTeam" md-selected-text="getSelectedTeam()">
+                <md-optgroup label="teams">
+                <md-option ng-value="teamq" ng-repeat="teamq in allTeams">{{teamq}}</md-option>
+                </md-optgroup>
+            </md-select>
+        </md-input-container>
+    </div>
+
+    <div layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-click="saveTournament()">Save</md-button>
+    <div layout="row" >
+       
+
+  </md-content>
+  
+
+
+
+
+</div>
+
+

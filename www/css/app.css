@@ -24,12 +24,12 @@ md-icon {
     text-align: center;
 }
 
-md-checkbox {
-  margin: 8px;
-  cursor: pointer;
-  padding-left: 18px;
-  padding-right: 0;
-  line-height: 26px;
-  min-width: 18px;
-  min-height: 18px;
+.create-page md-input-container {
+    margin-top: 8px;
+    margin-bottom: 0;
+    margin-right: 16px;
+    padding: 2px 20px 2px 0;
+
 }
+
+

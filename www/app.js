@@ -10,20 +10,37 @@ console.log('cmon')
 angular.module('tournament', [
   'ngRoute',
   'ngMaterial',
-  'md.data.table'
+  'md.data.table',
+  'LocalStorageModule'
 ])
 
-angular.module('tournament').config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+angular.module('tournament').config(
+  ['$locationProvider', 
+    '$routeProvider', 
+    'localStorageServiceProvider',
+    function($locationProvider, 
+      $routeProvider, 
+      localStorageServiceProvider) {
   // $locationProvider.hashPrefix('#');
 
   $routeProvider
-  .when('/', {
+  .when('/home', {
             templateUrl: 'views/home.html',
             controller: 'HomeCtrl'
         })
-  .when('/game/:IDX', {
-            templateUrl: 'views/game.html',
-            controller: 'GameCtrl'
+  .when('/createTournament', {
+            templateUrl: 'views/createTournament.html',
+            controller: 'CreateTournamentCtrl'
         })
-  .otherwise({redirectTo: '/'});
+  .when('/tournament', {
+            templateUrl: 'views/tournament.html',
+            controller: 'TournamentCtrl'
+        })
+  .otherwise({redirectTo: '/home'});
+
+  localStorageServiceProvider
+    .setPrefix('tournament')
+    .setNotify(false, false);
+
+
 }]);

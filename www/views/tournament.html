@@ -1,0 +1,82 @@
+<div layout="column" ng-cloak>
+  <md-toolbar class="md-theme-light">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Tournament Home</h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+      <!--<md-list>
+        <md-list-item class="md-1-line" ng-repeat="name in tournaments track by $index">
+              <div class="md-list-item-text">
+              {{name}}
+              <md-divider ng-if="!$last"></md-divider>
+            </div>
+          </md-list-item>
+      </md-list>-->
+
+
+      <!-- exact table from live demo -->
+      <md-table-container>
+        <table md-table >
+          <thead md-head md-order="myOrder" >
+            <tr md-row>
+              <th md-column md-order-by="name" ><span>Team</span></th>
+              <th md-column md-numeric md-order-by="played" ><span>P</span></th>
+              <th md-column md-numeric>W</th>
+              <th md-column md-numeric>D</th>
+              <th md-column md-numeric>L</th>
+              <th md-column md-numeric>F</th>
+              <th md-column md-numeric>A</th>
+              <th md-column md-numeric>PD</th>
+              <th md-column md-numeric md-order-by="points">Pts</th>
+            </tr>
+          </thead>
+          <tbody md-body>
+            <tr md-row ng-repeat="team in teamsTable | orderBy: myOrder track by $index ">
+              <td md-cell>{{team.name}}</td>
+              <td md-cell>{{team.played}}</td>
+              <td md-cell>{{team.won}}</td>
+              <td md-cell>{{team.drew}}</td>
+              <td md-cell>{{team.lost}}</td>
+              <td md-cell>{{team.for}}</td>
+              <td md-cell>{{team.against}}</td>
+              <td md-cell>{{team.diff}}</td>
+             <td md-cell>{{team.points}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+
+
+    <!--<div ng-repeat="game in games track by $index">
+      <div ng-click="loadGame($index)">
+      {{game.teamH}} {{game.scoreHgoals}}:{{game.scoreHpoints}} - 
+      {{game.teamO}} {{game.scoreOgoals}}:{{game.scoreOpoints}}
+      </div>
+    </div>-->
+
+    <md-list>
+ 
+        <md-list-item class="md-1-line" ng-click="showGameDialog($event, $index)" ng-repeat="game in games track by $index">
+            <md-checkbox   aria-label="checkbox" ng-model="game.active" ng-change="updateTable()"></md-checkbox>
+            <div class="md-list-item-text md-body-1">
+                {{game.teamH}}: {{game.scoreHgoals}}-{{game.scoreHpoints}}({{game.scoreHgoals*3 + game.scoreHpoints}}) &nbsp;&nbsp;
+                {{game.teamO}}: {{game.scoreOgoals}}-{{game.scoreOpoints}}({{game.scoreOgoals*3 + game.scoreOpoints}})
+            </div>
+            <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+
+    </md-list>
+  
+       
+
+  </md-content>
+
+
+
+
+</div>
+
+
