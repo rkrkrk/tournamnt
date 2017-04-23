@@ -8,60 +8,73 @@
     ['localStorageService',
     function (localStorageService) {
     var currentTournament;
+
+    var checkStorage = function(){
+        return localStorage.isSupported
+    }
     
 
-    var saveCurrentTournament = function (tournament) {
-        currentTournament = tournament;
-        if(localStorageService.isSupported) {
-            console.log('SAVING' ,JSON.stringify(currentTournament))
-            localStorage.setItem('feile', JSON.stringify(currentTournament));
-        }
+    var saveTournamentDetails = function (tournamentID, tournamentDetails) {
+        console.log('SAVING' ,JSON.stringify(tournamentDetails))
+        localStorageService.set(tournamentID, JSON.stringify(tournamentDetails));
     };
 
-    var getCurrentTournament = function () {
-        var stored;
-        if(localStorageService.isSupported) {
-            stored = JSON.parse(localStorage.getItem('feile'));
-            console.log('FROM LS' , stored)
-        }
-        return stored || currentTournament;
+    var getTournamentDetails = function (tournamentID) {
+        var tournamentDetails;
+        tournamentDetails = JSON.parse(localStorageService.get(tournamentID));
+        console.log('RETURNING' ,tournamentDetails)
+        return tournamentDetails;
     };
 
-    var saveTournament = function (tournament) {
+    var saveNewTournament = function (tournament) {
+        tournament.tournamentID = new Date().getTime();
+        var tournaments = this.getAllTournaments() || [];
+        tournaments.push(tournament);
+        localStorageService.set('tournaments', JSON.stringify(tournaments));
+        return tournament.tournamentID;
+    };
+
+    var updateTournament = function (tournament) {
+        var idx = tournament.tournamentID;
         tournaments.push(tournament);
         if(localStorageService.isSupported) {
-            localStorage.setItem('tournaments', JSON.stringify(tournaments));
+            localStorage.set('tournaments', JSON.stringify(tournaments));
         }
+        return tournament.tournamentID;
     };
 
-    var getTournament = function (idx) {
-        var stored;
-        if(localStorageService.isSupported) {
-            stored = JSON.parse(localStorage.getItem('tournaments'));
-            console.log('FROM LS' , stored)
-        }
-        return stored[idx] || tournaments[idx] || null;
+    var deleteTournament = function (tournamentID) {
+        var stored = JSON.parse(localStorageService.get('tournaments'));
+        var t = _.filter(stored, function(t){
+                return t.tournamentID !== parseInt(tournamentID,10);
+            })
+        localStorageService.set('tournaments', JSON.stringify(t));        
+        localStorageService.remove(tournamentID);
+        return t;
     };
 
-    var getTournaments = function () {
-        var stored;
-        if(localStorageService.isSupported) {
-            stored = JSON.parse(localStorage.getItem('tournaments'));
-            console.log('FROM LS' , stored)
-        }
-        return stored || tournaments || null;
+    var getTournament = function (tournamentID) {
+        var stored = JSON.parse(localStorageService.get('tournaments'));
+        return _.find(stored, {tournamentID: parseInt(tournamentID,10)})
     };
 
-    var tournaments= getTournaments() || [];
+    var getAllTournaments = function () {
+        var stored = JSON.parse(localStorageService.get('tournaments'));
+        return stored;
+    };
+
 
 
 
     return {
-        saveCurrentTournament: saveCurrentTournament,
-        getCurrentTournament: getCurrentTournament,
-        saveTournament: saveTournament,
+        checkStorage: checkStorage,
+        saveTournamentDetails: saveTournamentDetails,
+        getTournamentDetails: getTournamentDetails,
+        saveNewTournament: saveNewTournament,
+        updateTournament: updateTournament,
+        deleteTournament: deleteTournament,
         getTournament: getTournament,
-        getTournaments: getTournaments
+        getAllTournaments: getAllTournaments
 
     };
 

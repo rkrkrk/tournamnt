@@ -11,7 +11,8 @@ angular.module('tournament', [
   'ngRoute',
   'ngMaterial',
   'md.data.table',
-  'LocalStorageModule'
+  'LocalStorageModule',
+  'ngMessages'
 ])
 
 angular.module('tournament').config(
@@ -32,7 +33,7 @@ angular.module('tournament').config(
             templateUrl: 'views/createTournament.html',
             controller: 'CreateTournamentCtrl'
         })
-  .when('/tournament', {
+  .when('/tournament/:TID', {
             templateUrl: 'views/tournament.html',
             controller: 'TournamentCtrl'
         })

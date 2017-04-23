@@ -8,8 +8,10 @@ angular.module('tournament').controller('CreateTournamentCtrl',
         $scope.tournament = {};
         $scope.tournament.teams=[];
         $scope.allTeams = _.pullAllWith(['Faughs', 'Judes', 'Crokes', 'Boden'], $scope.teams, _.isEqual);
-        
-
+        $scope.tournament.pointsForWin = 2;
+        $scope.tournament.pointsForDraw = 1;
+        $scope.tournament.pointsForLoss = 0;
+       
         // $scope.items = [1, 2, 3, 4, 5, 6, 7];
         $scope.selectedTeam;
         $scope.getSelectedTeam = function(idx) {
@@ -34,7 +36,11 @@ angular.module('tournament').controller('CreateTournamentCtrl',
                     $scope.inputTeam = null;
                     resetTeamDropdown();
                 }
+                if($scope.tournament.teams.length > 1){
+                    $scope.addform.name.$setValidity("size", true);
+                }
             }
+            
         }
 
         function resetTeamDropdown(){
@@ -47,9 +53,28 @@ angular.module('tournament').controller('CreateTournamentCtrl',
         }
 
         $scope.saveTournament = function(){
-            TournamentStore.saveTournament($scope.tournament);
+            if ($scope.tournament.teams.length < 2){
+                $scope.addform.name.$setValidity("size", false);
+                $scope.addform.name.$setTouched();
+            }
+            if (!$scope.tournament.tournamentName){
+                $scope.tSetup.name.$setValidity("required", false);
+                $scope.tSetup.name.$setTouched();
+            } 
+            
+            if ($scope.tournament.teams.length >1 && $scope.tournament.tournamentName && $scope.tournament.tournamentName.length > 0) {
+                var tournamentID = TournamentStore.saveNewTournament($scope.tournament);
+                $location.path( '/tournament/' + tournamentID);
+            }
+
+           
+        }
+
+        $scope.cancel = function(){
             $location.path( '/home');
         }
+
+  
 
 
         

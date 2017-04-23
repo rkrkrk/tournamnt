@@ -2,12 +2,14 @@
 
 
 angular.module('tournament').controller('TournamentCtrl',
-    ['$scope', '$location', 'Roundrobin' , 'TournamentStore', '$mdDialog',
-    function($scope, $location, Roundrobin, TournamentStore, $mdDialog) {
-        console.log('in home controller')
-        $scope.tournaments = ['Feile1', 'Feile2','Feile3'];
+    ['$scope', '$route', '$location', 'Roundrobin' , 'TournamentStore', '$mdDialog',
+    function($scope, $route, $location, Roundrobin, TournamentStore, $mdDialog) {
+
+        var tournamentID = $route.current.params.TID
         var pointsForWin = 2;
         var pointsForDraw = 1;
+        var pointsForLoss = 0;
+        
         
         
 
@@ -67,6 +69,7 @@ angular.module('tournament').controller('TournamentCtrl',
                                 team.points = team.points + pointsForWin;
                             } else if(result===1){
                                 team.lost++;
+                                team.points = team.points + pointsForLoss;
                             } else {
                                 team.drew++;
                                 team.points = team.points + pointsForDraw;
@@ -82,6 +85,7 @@ angular.module('tournament').controller('TournamentCtrl',
                                 team.points = team.points + pointsForWin;
                             } else if(result===0){
                                 team.lost++;
+                                team.points = team.points + pointsForLoss;
                             } else {
                                 team.drew++;
                                 team.points = team.points + pointsForDraw;
@@ -99,22 +103,28 @@ angular.module('tournament').controller('TournamentCtrl',
             $scope.teamsTable = _.orderBy(teamsTable, ['points', 'diff', 'name'], ['desc', 'desc', 'asc']);
         }
 
-       var teams = ["aaa", "bbb", "ccc", "ddd"]
 
-        $scope.games = TournamentStore.getCurrentTournament();
+        //initialise
+        $scope.games = TournamentStore.getTournamentDetails(tournamentID);
+        var tournament = $scope.tournament = TournamentStore.getTournament(tournamentID);
+        pointsForWin = tournament.pointsForWin || 2;
+        pointsForDraw = tournament.pointsForDraw || 1;
+        pointsForLoss = tournament.pointsForLoss || 0;
+
+        //TODO error checking if no tournament
 
         // initialise tournament
         if (!$scope.games) {
             
-             console.log('Roundrobin ', Roundrobin(4));
-            var rrArr = Roundrobin(teams.length)
+            console.log('Roundrobin ', Roundrobin(4));
+            var rrArray = Roundrobin(tournament.teams.length)
             var games = [];
-            _.forEach(rrArr, function(group){
+            _.forEach(rrArray, function(group){
                 _.forEach(group, function(game){
                     games.push(new Game(
-                        teams[game[0]-1],
+                        tournament.teams[game[0]-1],
                         0,0,0,
-                        teams[game[1]-1],
+                        tournament.teams[game[1]-1],
                         0,0,0
                     ));
                 });
@@ -122,10 +132,10 @@ angular.module('tournament').controller('TournamentCtrl',
 
             $scope.games = games;
 
-            TournamentStore.saveCurrentTournament(games);
+            TournamentStore.saveTournamentDetails(tournamentID, games);
         }
 
-        makeTable($scope.games, teams);
+        makeTable($scope.games, tournament.teams);
 
         $scope.showGameDialog = function(ev, idx) {
             $scope.gameIndex = idx;
@@ -134,7 +144,9 @@ angular.module('tournament').controller('TournamentCtrl',
             templateUrl: 'views/dialogGame.html',
             parent: angular.element(document.body),
             locals: {
-                gameIdx: $scope.gameIndex
+                gameIdx: $scope.gameIndex,
+                games: $scope.games,
+                tournamentID: tournamentID
             },
             targetEvent: ev,
             clickOutsideToClose:false,
@@ -143,22 +155,21 @@ angular.module('tournament').controller('TournamentCtrl',
             .then(function(games) {
                 console.log('game modal saved');
                 $scope.games = games;
-                makeTable($scope.games, teams);
+                makeTable($scope.games, tournament.teams);
             }, function() {
                 console.log('game modal concelled');
             });
         };
         
-        // played won lost draw for against diff ptslinke
 
-        $scope.loadGame = function(idx){
-            console.log('load game');
-            $location.path( '/game/'+idx);
+
+        $scope.updateTable = function(){
+            TournamentStore.saveTournamentDetails(tournamentID, $scope.games);
+            makeTable($scope.games, tournament.teams);
         }
 
-         $scope.updateTable = function(){
-            TournamentStore.saveCurrentTournament($scope.games);
-            makeTable($scope.games, teams);
+        $scope.goHome = function(){
+            $location.path('/home')
         }
 
 

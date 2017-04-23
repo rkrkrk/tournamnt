@@ -1,7 +1,8 @@
 <div layout="column" ng-cloak>
   <md-toolbar class="md-theme-light">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Tournament Home</h2>
+      <h2 class="md-flex">{{tournament.tournamentName}}</h2>
+      <h2 class="md-flex">{{tournament.tournamentComment}}</h2>
     </div>
   </md-toolbar>
 
@@ -69,6 +70,10 @@
         </md-list-item>
 
     </md-list>
+
+    <div layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-click="goHome()">List All Tournaments</md-button>
+    <div layout="row" >
   
        
 

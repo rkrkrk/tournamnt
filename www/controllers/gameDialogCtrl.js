@@ -2,10 +2,10 @@
 
 
 angular.module('tournament').controller('GameDialogCtrl',
-    ['$scope', '$mdDialog', 'gameIdx', 'TournamentStore',
-    function($scope, $mdDialog, gameIdx, TournamentStore) {
+    ['$scope', '$mdDialog', 'gameIdx', 'games', 'tournamentID', 'TournamentStore',
+    function($scope, $mdDialog, gameIdx, games, tournamentID, TournamentStore) {
         console.log('in GameDialogCtrl controller');
-        var games = TournamentStore.getCurrentTournament();
+        // var games = games
 
         var game = $scope.game = games[gameIdx];
 
@@ -15,7 +15,7 @@ angular.module('tournament').controller('GameDialogCtrl',
             game.scoreOpoints = 0;
             game.scoreOgoals = 0;
             game.active = false;
-            TournamentStore.saveCurrentTournament(games);
+            TournamentStore.saveTournamentDetails(tournamentID, games);
             $mdDialog.hide(games);
         };
 
@@ -26,7 +26,7 @@ angular.module('tournament').controller('GameDialogCtrl',
 
         $scope.save = function() {
             game.active = true;
-            TournamentStore.saveCurrentTournament(games);
+            TournamentStore.saveTournamentDetails(tournamentID,games);
             $mdDialog.hide(games);
         };
 
