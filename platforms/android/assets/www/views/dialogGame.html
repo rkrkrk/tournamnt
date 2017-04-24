@@ -1,0 +1,151 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Game</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-svg-src="resources/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div layout="row" layout-align="center center">
+            <h3>
+                {{game.teamH}} score 
+                <span ng-show="game.scoreHgoals > 0 || game.scoreHpoints > 0">({{game.scoreHgoals*3 + game.scoreHpoints}})</span>
+            </h3>
+        </div>
+
+        <div layout="row" layout-align="center center">
+
+            <div flex>
+                <div layout="column" layout-align="center end">
+                    <div flex>
+                        <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,0,1)">
+                        <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                        </md-button>
+                    </div>
+                    <div flex>
+                        <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,0,-1)">
+                        <md-icon md-svg-src="./resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div flex >
+                <md-input-container class="md-block score" md-no-float>
+                    <label>Goals</label>
+                    <input type="number" name="postalCode" ng-model="game.scoreHgoals" >
+                </md-input-container>
+            </div>
+
+            <div flex="5" ></div> 
+
+            <div flex layout-align="center center">
+                <md-input-container class="md-block score" md-no-float>
+                    <label>Points</label>
+                    <input type="number" name="postalCode" ng-model="game.scoreHpoints" >
+                </md-input-container>
+            </div>
+
+            <div flex>
+                <div layout="column" layout-align="center start">
+                <div flex>
+                    <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,1,1)">
+                    <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                    </md-button>
+                </div>
+                <div flex>
+                    <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(0,1,-1)">
+                    <md-icon md-svg-src="./resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                    </md-button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div layout="row" layout-align="center center">
+            <h3>
+                {{game.teamO}} score 
+                    <span ng-show="game.scoreOgoals > 0 || game.scoreOpoints > 0">({{game.scoreOgoals*3 + game.scoreOpoints}})</span>
+            </h3>
+        </div>
+
+        <div layout="row" layout-align="center center">
+
+            <div flex>
+            <div layout="column" layout-align="center end">
+                <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,0,1)">
+                    <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+                </div>
+                <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,0,-1)">
+                    <md-icon md-svg-src="./resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+                </div>
+            </div>
+            </div>
+
+            <div flex >
+                <md-input-container class="md-block score" md-no-float>
+                    <label>Goals</label>
+                    <input type="number" name="postalCode" ng-model="game.scoreOgoals" >
+                </md-input-container>
+            </div>
+
+            
+            <div flex="5" ></div>
+        
+
+            <div flex layout-align="center center">
+                <md-input-container class="md-block score" md-no-float>
+                    <label>Points</label>
+                    <input type="number" name="postalCode" ng-model="game.scoreOpoints" >
+                </md-input-container>
+            </div>
+
+            <div flex>
+            <div layout="column" layout-align="center start">
+                <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,1,1)">
+                    <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+                </div>
+                <div flex>
+                <md-button class="md-fab md-mini" aria-label="add score" ng-click="modScore(1,1,-1)">
+                    <md-icon md-svg-src="./resources/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                </md-button>
+                </div>
+            </div>
+            </div>
+
+        </div>
+
+
+
+    </md-dialog-content>
+
+
+
+    
+
+    <md-dialog-actions layout="row">
+      <md-button ng-click="cancel()">
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="reset()">
+       Reset
+      </md-button>
+      <md-button ng-click="save()" md-autofocus>
+        Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

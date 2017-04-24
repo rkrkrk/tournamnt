@@ -1,12 +1,22 @@
 <div layout="column" ng-cloak>
+
   <md-toolbar class="md-theme-light">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">{{tournament.tournamentName}}</h2>
-      <h2 class="md-flex">{{tournament.tournamentComment}}</h2>
+      <h2 flex>{{tournament.tournamentName}}</h2>
+
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="goSettings()">
+          <md-icon md-svg-icon="./resources/ic_settings_white_24px.svg" ></md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="More" ng-click="goHome()">
+          <md-icon md-svg-icon="./resources/ic_home_white_24px.svg"></md-icon>
+        </md-button>
     </div>
   </md-toolbar>
 
   <md-content flex layout-padding>
+
+    <p ng-show="tournament.tournamentComment">{{tournament.tournamentComment}}</p>
       <!--<md-list>
         <md-list-item class="md-1-line" ng-repeat="name in tournaments track by $index">
               <div class="md-list-item-text">
@@ -58,10 +68,15 @@
       </div>
     </div>-->
 
-    <md-list>
+    <md-list class="md-dense">
  
         <md-list-item class="md-1-line" ng-click="showGameDialog($event, $index)" ng-repeat="game in games track by $index">
-            <md-checkbox   aria-label="checkbox" ng-model="game.active" ng-change="updateTable()"></md-checkbox>
+            <!--<md-checkbox   aria-label="checkbox" ng-model="game.active" ng-change="updateTable()"></md-checkbox>-->
+            <!--<md-icon  md-svg-src="./resources/ic_done_black_24px.svg"></md-icon>-->
+            <div style="width:2em">
+              <img style="width:1.5em" ng-show="game.active" src="./resources/greenspot.svg.png"  />
+            </div>
+            <!--<img ng-hide="game.active" src="./resources/ic_done_white_24px.svg"  />-->
             <div class="md-list-item-text md-body-1">
                 {{game.teamH}}: {{game.scoreHgoals}}-{{game.scoreHpoints}}({{game.scoreHgoals*3 + game.scoreHpoints}}) &nbsp;&nbsp;
                 {{game.teamO}}: {{game.scoreOgoals}}-{{game.scoreOpoints}}({{game.scoreOgoals*3 + game.scoreOpoints}})

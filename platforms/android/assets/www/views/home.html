@@ -1,0 +1,51 @@
+<div layout="column" ng-cloak>
+  <md-toolbar class="md-theme-light">
+    <div class="md-toolbar-tools">
+      <h2 class="md-flex">Tournaments Creator Home</h2>
+    </div>
+  </md-toolbar>
+
+  <md-content flex>
+      <md-list >
+        <md-subheader >Tournaments List</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="tournament in tournaments track by $index" ng-click="runTournament(tournament)">
+              <div class="md-list-item-text" layout="column">
+              <h3>{{tournament.tournamentName}}</h3>
+              <h4>{{tournament.tournamentComment}}</h4>
+              <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="runTournament(tournament)">
+                  <md-icon class="md-primary" md-svg-src="./resources/ic_launch_black_24px.svg"></md-icon>
+              </md-button>
+              <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="editTournament(tournament)">
+                  <md-icon  md-svg-src="./resources/ic_settings_black_24px.svg"></md-icon>
+              </md-button>
+              <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="confirmDelete(tournament)">
+                  <md-icon  md-svg-src="./resources/ic_delete_black_24px.svg"></md-icon>
+              </md-button>
+             </div>
+            <md-divider ></md-divider>
+          </md-list-item>
+          
+      </md-list>
+
+    <div layout="row" layout-align="end center"> 
+        <md-button class="md-raised md-primary" aria-label="add tournament" ng-click="createTournament()">
+            <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
+            Create New Tournaments
+        </md-button>
+    </div>
+
+
+     
+
+
+
+       
+
+  </md-content>
+
+
+
+
+</div>
+
+

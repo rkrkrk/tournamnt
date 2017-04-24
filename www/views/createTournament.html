@@ -38,18 +38,22 @@
             </div>
            
 
-            <div layout="row" layout-wrap class="create-page">
-                <md-input-container ng-repeat="team in tournament.teams track by $index" >
+            <!--<div layout="row" layout-wrap class="create-page">-->
+                <md-input-container class="md-block" ng-repeat="team in tournament.teams track by $index" >
                     <label>Team #{{$index+1}}</label>
-                    <input ng-model="tournament.teams[$index]">
-                    <md-icon md-svg-src="resources/ic_delete_black_24px.svg" ng-click="removeTeam($index)"></md-icon>
+                    <input name="name{{$index}}" ng-model="tournament.teams[$index]" required>
+                    <md-icon ng-show="newTournament" md-svg-src="./resources/ic_delete_black_24px.svg" ng-click="removeTeam($index)"></md-icon>
+                    <div ng-messages="tSetup['name'+$index].$error">
+                    <!--<div ng-messages="tSetup.name01.$error">-->
+                        <div ng-message="required">Name is required.</div>
+                    </div>
                 </md-input-container>
-            </div>
+            <!--</div>-->
     
         </form>
         
-        
-    <div layout="row" >
+
+    <div layout="row" ng-show="newTournament">
         <form name="addform" ng-submit="addTeam()">
             <md-input-container md-no-float>
                 <label>add new team</label>

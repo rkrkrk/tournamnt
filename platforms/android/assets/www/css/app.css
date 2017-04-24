@@ -1,0 +1,39 @@
+/* app css stylesheet */
+
+table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
+    padding: 0 4px;
+}
+
+table.md-table tbody.md-body > tr.md-row, table.md-table tfoot.md-foot > tr.md-row {
+    height: 24px;
+}
+
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+    padding: 0 18px 0 0;
+}
+
+md-icon {
+    min-width: 20px;
+}
+
+.score {
+    margin: 0 1em;
+}
+
+.score input {
+    text-align: center;
+}
+
+.create-page md-input-container {
+    margin-top: 8px;
+    margin-bottom: 0;
+    margin-right: 16px;
+    padding: 2px 20px 2px 0;
+
+}
+
+md-input-container {
+    margin: 0;
+}
+
+
