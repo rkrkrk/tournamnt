@@ -8,6 +8,7 @@ angular.module('tournament').controller('CreateTournamentCtrl',
         var tournamentID = $route.current.params.TID;
         var newTournament = $scope.newTournament = tournamentID ? false : true;
         $scope.tournament =  tournamentID ? TournamentStore.getTournament(tournamentID) : {};
+        $scope.games = tournamentID ? _.sortBy(TournamentStore.getTournamentDetails(tournamentID), ['order']) : [];
         var teamsOriginal;
         var storedTeams = _.sortBy(TournamentStore.getTeams());
         $scope.allTeams = storedTeams || [];
@@ -69,7 +70,7 @@ angular.module('tournament').controller('CreateTournamentCtrl',
         }
 
         function updateTournamentDetails() {
-            var tournamentDetails = TournamentStore.getTournamentDetails(tournamentID);
+            var tournamentDetails = $scope.games;
             tournamentDetails.pointsForWin = $scope.pointsForWin;
             tournamentDetails.pointsForDraw = $scope.pointsForDraw;
             tournamentDetails.pointsForLoss = $scope.pointsForLoss;
@@ -119,6 +120,12 @@ angular.module('tournament').controller('CreateTournamentCtrl',
 
         $scope.cancel = function(){
             $location.path( '/home');
+        }
+
+        $scope.swapGames = function(game){
+            var swap = game.teamH;
+            game.teamH = game.teamO;
+            game.teamO = swap;
         }
 
   

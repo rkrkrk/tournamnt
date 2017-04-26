@@ -51,6 +51,24 @@
             <!--</div>-->
     
         </form>
+
+            <md-list class="md-dense">
+                <md-list-item class="md-1-line" ng-repeat="game in games track by $index" ng-click="runTournament(tournament)">
+                    <div class="md-list-item-text md-body-1" layout="column">
+                        {{game.teamH}} v. {{game.teamO}}
+                        <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="swapGames(game)">
+                            <md-icon  md-svg-src="./resources/ic_swap_horiz_black_24px.svg"></md-icon>
+                        </md-button>
+                        <md-input-container style:"width:2.5" class="md-secondary"  >
+                            <label>Game Order</label>
+                            <input  ng-model="game.order">
+                        </md-input-container>
+                    </div>
+                    <!--<md-divider ></md-divider>-->
+                </md-list-item>
+                
+            </md-list>
+
         
 
     <div layout="row" ng-show="newTournament">

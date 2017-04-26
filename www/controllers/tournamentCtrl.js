@@ -106,7 +106,7 @@ angular.module('tournament').controller('TournamentCtrl',
 
 
         //initialise
-        $scope.games = TournamentStore.getTournamentDetails(tournamentID);
+        $scope.games = _.sortBy(TournamentStore.getTournamentDetails(tournamentID), ['order']);
         var tournament = $scope.tournament = TournamentStore.getTournament(tournamentID);
         pointsForWin = tournament.pointsForWin || 2;
         pointsForDraw = tournament.pointsForDraw || 1;

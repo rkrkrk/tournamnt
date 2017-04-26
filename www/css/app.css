@@ -1,5 +1,6 @@
 /* app css stylesheet */
 
+
 table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
     padding: 0 4px;
 }
@@ -34,6 +35,10 @@ md-icon {
 
 md-input-container {
     margin: 0;
+}
+
+md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: your_color_here;
 }
 
 
