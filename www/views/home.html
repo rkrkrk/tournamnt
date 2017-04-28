@@ -1,14 +1,18 @@
 <div layout="column" ng-cloak>
   <md-toolbar class="md-theme-light">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Tournaments Creator Home</h2>
+      <h2 flex class="md-flex">Tournaments Creator Home</h2>
+
+        <md-button class="md-icon-button" aria-label="More" ng-click="createTournament()">
+            <md-icon md-svg-icon="./resources/ic_add_circle_white_24px.svg"></md-icon>
+        </md-button>
     </div>
   </md-toolbar>
 
   <md-content flex>
       <md-list class="md-dense">
         <md-subheader >Tournaments List</md-subheader>
-        <md-list-item class="md-2-line" ng-repeat="tournament in tournaments track by $index" ng-click="runTournament(tournament)">
+        <md-list-item class="md-2-line wrap" ng-repeat="tournament in tournaments track by $index" ng-click="runTournament(tournament)">
               <div class="md-list-item-text" layout="column">
               <h3>{{tournament.tournamentName}}</h3>
               <h4>{{tournament.tournamentComment}}</h4>
@@ -27,12 +31,12 @@
           
       </md-list>
 
-    <div layout="row" layout-align="end center"> 
+    <!--<div layout="row" layout-align="end center"> 
         <md-button class="md-raised md-primary" aria-label="add tournament" ng-click="createTournament()">
             <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
             Create New Tournaments
         </md-button>
-    </div>
+    </div>-->
 
 
      

@@ -106,7 +106,7 @@ angular.module('tournament').controller('TournamentCtrl',
 
 
         //initialise
-        $scope.games = _.sortBy(TournamentStore.getTournamentDetails(tournamentID), ['order']);
+        var games = TournamentStore.getTournamentDetails(tournamentID);
         var tournament = $scope.tournament = TournamentStore.getTournament(tournamentID);
         pointsForWin = tournament.pointsForWin || 2;
         pointsForDraw = tournament.pointsForDraw || 1;
@@ -115,7 +115,7 @@ angular.module('tournament').controller('TournamentCtrl',
         //TODO error checking if no tournament
 
         // initialise tournament
-        if (!$scope.games) {
+        if (!games) {
             var rrArray = Roundrobin(tournament.teams.length)
             var games = [];
             var gameOrder=1;
@@ -133,8 +133,12 @@ angular.module('tournament').controller('TournamentCtrl',
             });
 
             $scope.games = games;
-
+            console.log ('init new games');
             TournamentStore.saveTournamentDetails(tournamentID, games);
+        } else {
+            console.log ('sort games in');
+            $scope.games = _.sortBy(games, ['order']);
+            console.log ('sort games in ', $scope.games);
         }
 
         makeTable($scope.games, tournament.teams);

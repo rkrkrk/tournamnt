@@ -1,5 +1,6 @@
 /* app css stylesheet */
 
+
 table.md-table:not(.md-row-select) td.md-cell:first-child, table.md-table:not(.md-row-select) th.md-column:first-child {
     padding: 0 4px;
 }
@@ -29,11 +30,40 @@ md-icon {
     margin-bottom: 0;
     margin-right: 16px;
     padding: 2px 20px 2px 0;
-
 }
 
 md-input-container {
-    margin: 0;
+    margin-top: 8px;
+    margin-bottom:8px;
 }
 
+.list-drag {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
 
+p {
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+.wrap {
+    /*white-space: -moz-pre-wrap;  
+    white-space: -o-pre-wrap; 
+    white-space: pre-wrap;  
+    word-wrap: break-word; */
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.layout-padding {
+    padding: 4px 4px;
+}
+
+.comment {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: smaller;
+}

@@ -16,19 +16,10 @@
 
   <md-content flex layout-padding>
 
-    <p ng-show="tournament.tournamentComment">{{tournament.tournamentComment}}</p>
-      <!--<md-list>
-        <md-list-item class="md-1-line" ng-repeat="name in tournaments track by $index">
-              <div class="md-list-item-text">
-              {{name}}
-              <md-divider ng-if="!$last"></md-divider>
-            </div>
-          </md-list-item>
-      </md-list>-->
-
+    <p class="comment" ng-show="tournament.tournamentComment">{{tournament.tournamentComment}}</p>
 
       <!-- exact table from live demo -->
-      <md-table-container>
+      <md-table-container class="bold">
         <table md-table >
           <thead md-head md-order="myOrder" >
             <tr md-row>
@@ -58,6 +49,7 @@
           </tbody>
         </table>
       </md-table-container>
+      </strong>
 
 
 
@@ -68,22 +60,27 @@
       </div>
     </div>-->
 
-    <md-list>
+    <md-list class="md-dense">
  
         <md-list-item class="md-1-line" ng-click="showGameDialog($event, $index)" ng-repeat="game in games track by $index">
-            <md-checkbox   aria-label="checkbox" ng-model="game.active" ng-change="updateTable()"></md-checkbox>
-            <div class="md-list-item-text md-body-1">
-                {{game.teamH}}: {{game.scoreHgoals}}-{{game.scoreHpoints}}({{game.scoreHgoals*3 + game.scoreHpoints}}) &nbsp;&nbsp;
-                {{game.teamO}}: {{game.scoreOgoals}}-{{game.scoreOpoints}}({{game.scoreOgoals*3 + game.scoreOpoints}})
+            <!--<md-checkbox   aria-label="checkbox" ng-model="game.active" ng-change="updateTable()"></md-checkbox>-->
+            <!--<md-icon  md-svg-src="./resources/ic_done_black_24px.svg"></md-icon>-->
+            <div style="width:2em">
+              <img style="width:1.5em" ng-show="game.active" src="./resources/greenspot.svg.png"  />
+            </div>
+            <!--<img ng-hide="game.active" src="./resources/ic_done_white_24px.svg"  />-->
+            <div class="md-list-item-text md-body-1 wrap">
+                {{game.teamH}}:{{game.scoreHgoals}}-{{game.scoreHpoints}}({{game.scoreHgoals*3 + game.scoreHpoints}}) &nbsp; 
+                {{game.teamO}}:{{game.scoreOgoals}}-{{game.scoreOpoints}}({{game.scoreOgoals*3 + game.scoreOpoints}})
             </div>
             <md-divider ng-if="!$last"></md-divider>
         </md-list-item>
 
     </md-list>
-
+<!--
     <div layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-click="goHome()">List All Tournaments</md-button>
-    <div layout="row" >
+    <div layout="row" >-->
   
        
 

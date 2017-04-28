@@ -1,13 +1,23 @@
 <div layout="column" ng-cloak>
   <md-toolbar class="md-theme-light">
     <div class="md-toolbar-tools">
-      <h2 class="md-flex">Create New Tournament</h2>
+      <h2 flex class="md-flex">Create New Tournament</h2>
+
+       <md-button class="md-icon-button" aria-label="Favorite" ng-click="cancel()">
+          <md-icon md-svg-icon="./resources/ic_cancel_white_24px.svg" ></md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button" aria-label="More" ng-click="saveTournament()">
+          <md-icon md-svg-icon="./resources/ic_save_white_24px.svg"></md-icon>
+        </md-button>
     </div>
   </md-toolbar>
 
-  <md-content flex layout-padding >
-        <form name="tSetup" >
-            
+  <md-content flex >
+
+        <div layout-padding >
+            <form name="tSetup" >
+
             <md-input-container class="md-block">
                 <label>Tournament Name</label>
                 <input name="name" required ng-model="tournament.tournamentName">
@@ -15,8 +25,8 @@
                     <div ng-message="required">Name is required.</div>
                 </div>
             </md-input-container>
-        
-        
+
+
             <md-input-container class="md-block">
                 <label>Enter Comment / Notes</label>
                 <input ng-model="tournament.tournamentComment">
@@ -27,30 +37,47 @@
                     <label>Points for Win</label>
                     <input ng-model="tournament.pointsForWin">
                 </md-input-container>
-                 <md-input-container flex="33">
+                    <md-input-container flex="33">
                     <label>Points for Tie</label>
                     <input ng-model="tournament.pointsForDraw">
                 </md-input-container>
-                 <md-input-container flex="33">
+                    <md-input-container flex="33">
                     <label>Points for Loss</label>
                     <input ng-model="tournament.pointsForLoss">
                 </md-input-container>
             </div>
-           
+            </form>
+        </div>
 
-            <div layout="row" layout-wrap class="create-page">
-                <md-input-container ng-repeat="team in tournament.teams track by $index" >
+        <form name="tList" >
+            <md-subheader ng-show="tournament.teams.length>0" class="md-primary">TEAMS</md-subheader>
+            <div layout-padding >
+                <md-input-container class="md-block" ng-repeat="team in tournament.teams track by $index" >
                     <label>Team #{{$index+1}}</label>
-                    <input name="name{{$index}}" ng-model="tournament.teams[$index]" required>
+                    <input name="name{{$index}}" ng-model="tournament.teams[$index]" required 
+                        ng-change="updateNames(tournament.teams[$index], $index)">
                     <md-icon ng-show="newTournament" md-svg-src="./resources/ic_delete_black_24px.svg" ng-click="removeTeam($index)"></md-icon>
-                    <div ng-messages="tSetup['name'+$index].$error">
-                    <!--<div ng-messages="tSetup.name01.$error">-->
+                    <div ng-messages="tList['name'+$index].$error">
                         <div ng-message="required">Name is required.</div>
                     </div>
                 </md-input-container>
             </div>
-    
         </form>
+
+        
+        <md-subheader ng-show="games.length>0" class="md-primary">GAMES (drag to reorder, click icon to switch teams in game)</md-subheader>
+        <md-list id="items" class="md-dense">
+            <md-list-item class="md-1-line list-drag" data-id="{{game.order}}" ng-repeat="game in games track by $index">
+                <div class="md-list-item-text md-body-1" layout="column">
+                    {{game.teamH}} v. {{game.teamO}}
+                    <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="swapGames(game)">
+                        <md-icon  md-svg-src="./resources/ic_swap_horiz_black_24px.svg"></md-icon>
+                    </md-button>
+                </div>
+                <md-divider ></md-divider>
+            </md-list-item>
+            
+        </md-list>
         
 
     <div layout="row" ng-show="newTournament">
@@ -69,7 +96,7 @@
             <label>Teams</label>
             <md-select ng-model="selectedTeam" md-selected-text="getSelectedTeam()">
                 <md-optgroup label="teams">
-                <md-option ng-value="teamq" ng-repeat="teamq in allTeams">{{teamq}}</md-option>
+                <md-option ng-value="teamq" ng-repeat="teamq in allTeams track by $index">{{teamq}}</md-option>
                 </md-optgroup>
             </md-select>
         </md-input-container>
@@ -81,11 +108,11 @@
 <div ng-show="addform.name.$error.required">required</div>-->
 
 
-
+<!--
     <div layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
         <md-button class="md-raised md-primary" ng-click="saveTournament()">Save</md-button>
-    <div layout="row" >
+    <div layout="row" >-->
        
 
   </md-content>

@@ -14,7 +14,7 @@ angular.module('tournament').controller('TournamentCtrl',
         
 
         function Game(teamH, scoreH, scoreHpoints, scoreHgoals,
-                teamO, scoreO, scoreOpoints, scoreOgoals){
+                teamO, scoreO, scoreOpoints, scoreOgoals, order){
             this.teamH = teamH;
             this.scoreHpoints = scoreHpoints;
             this.scoreHgoals = scoreHgoals
@@ -22,6 +22,7 @@ angular.module('tournament').controller('TournamentCtrl',
             this.scoreOpoints = scoreOpoints;
             this.scoreOgoals = scoreOgoals;
             this.active = false;
+            this.order = order;
 
         }
 
@@ -105,7 +106,7 @@ angular.module('tournament').controller('TournamentCtrl',
 
 
         //initialise
-        $scope.games = TournamentStore.getTournamentDetails(tournamentID);
+        var games = TournamentStore.getTournamentDetails(tournamentID);
         var tournament = $scope.tournament = TournamentStore.getTournament(tournamentID);
         pointsForWin = tournament.pointsForWin || 2;
         pointsForDraw = tournament.pointsForDraw || 1;
@@ -114,25 +115,30 @@ angular.module('tournament').controller('TournamentCtrl',
         //TODO error checking if no tournament
 
         // initialise tournament
-        if (!$scope.games) {
-            
-            console.log('Roundrobin ', Roundrobin(4));
+        if (!games) {
             var rrArray = Roundrobin(tournament.teams.length)
             var games = [];
-            _.forEach(rrArray, function(group){
+            var gameOrder=1;
+            _.forEach(rrArray, function(group, idx){
                 _.forEach(group, function(game){
                     games.push(new Game(
                         tournament.teams[game[0]-1],
                         0,0,0,
                         tournament.teams[game[1]-1],
-                        0,0,0
+                        0,0,0,
+                        gameOrder
                     ));
+                    gameOrder++;
                 });
             });
 
             $scope.games = games;
-
+            console.log ('init new games');
             TournamentStore.saveTournamentDetails(tournamentID, games);
+        } else {
+            console.log ('sort games in');
+            $scope.games = _.sortBy(games, ['order']);
+            console.log ('sort games in ', $scope.games);
         }
 
         makeTable($scope.games, tournament.teams);
