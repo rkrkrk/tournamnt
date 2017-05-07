@@ -2,13 +2,15 @@
 
 
 angular.module('tournament').controller('TournamentCtrl',
-    ['$scope', '$route', '$location', 'Roundrobin' , 'TournamentStore', '$mdDialog',
-    function($scope, $route, $location, Roundrobin, TournamentStore, $mdDialog) {
+    ['$scope', '$route', '$timeout','$location', '$http', 'Roundrobin' , 'TournamentStore', '$mdDialog',
+    function($scope, $route, $timeout, $location, $http, Roundrobin, TournamentStore, $mdDialog) {
 
         var tournamentID = $route.current.params.TID
         var pointsForWin = 2;
         var pointsForDraw = 1;
         var pointsForLoss = 0;
+        var localHost =  ($location.host() === "localhost" || $location.host() === "127.0.0.1")
+
         
         
         
@@ -181,6 +183,34 @@ angular.module('tournament').controller('TournamentCtrl',
         $scope.goSettings = function(){
             $location.path('/createTournament/'+tournamentID)
         }
+
+        $scope.uploadGroup = function() {
+
+            $scope.success = false;
+            $scope.feck = false;
+            var url = localHost ? 'http://localhost:8001/db/save' : 'http://tournament-fintanm.rhcloud.com/db/save';
+            var params = {
+                type: 'games',
+                tid: tournamentID,
+                gmaes: $scope.games
+            }
+            $http.post(url, params)
+                .then(function(res){
+                    console.log('call ok');
+                    // $scope.result = res.data;
+                    $scope.success = true;
+                    $timeout(function(){
+                        $scope.success = false;
+                    }, 4000)
+                }, function(err){
+                    console.log('call ok', err);
+                    // $scope.result = 'error';
+                    $scope.feck = true;
+                    $timeout(function(){
+                        $scope.feck = false;
+                    }, 4000)
+                })
+        };
 
 
 }]);

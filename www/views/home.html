@@ -9,11 +9,23 @@
     </div>
   </md-toolbar>
 
+  <div layout="row" layout-align="end center" ng-show="!tournaments || tournaments.length < 1 || successDL">
+        <md-button ng-show="feckDL" class="md-fab md-mini " style="background-color: red;" aria-label="fail">
+          <md-icon md-svg-src="./resources/ic_error_white_24px.svg" ></md-icon>
+        </md-button>
+        <md-button ng-show="successDL" class="md-fab md-mini " style="background-color: green;" aria-label="success">
+          <md-icon md-svg-src="./resources/ic_check_white_24px.svg" ></md-icon>
+        </md-button>
+        <md-button ng-disabled="successDL || feckDL" class="md-raised md-warn" aria-label="add tournament" ng-click="downloadTournament()">
+            Download Tournament
+        </md-button>
+    </div>
+
   <md-content flex>
-      <md-list class="md-dense">
-        <md-subheader >Tournaments List</md-subheader>
-        <md-list-item class="md-2-line wrap" ng-repeat="tournament in tournaments track by $index" ng-click="runTournament(tournament)">
-              <div class="md-list-item-text" layout="column">
+      <md-list class="md-dense ">
+        <md-subheader ng-show="tournaments.length > 0 ">Tournaments List</md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="tournament in tournaments track by $index" ng-click="runTournament(tournament)">
+              <div class="md-list-item-text wrap" layout="column">
               <h3>{{tournament.tournamentName}}</h3>
               <h4>{{tournament.tournamentComment}}</h4>
               <md-button class="md-icon-button md-secondary" aria-label="add tournament" ng-click="runTournament(tournament)">
@@ -31,19 +43,17 @@
           
       </md-list>
 
-    <!--<div layout="row" layout-align="end center"> 
-        <md-button class="md-raised md-primary" aria-label="add tournament" ng-click="createTournament()">
-            <md-icon md-svg-src="./resources/ic_add_circle_outline_black_24px.svg"></md-icon>
-            Create New Tournaments
+    <div layout="row" layout-align="end center" ng-show="tournaments.length>0">
+        <md-button ng-show="feck" class="md-fab md-mini " style="background-color: red;" aria-label="fail">
+          <md-icon md-svg-src="./resources/ic_error_white_24px.svg" ></md-icon>
         </md-button>
-    </div>-->
-
-
-     
-
-
-
-       
+        <md-button ng-show="success" class="md-fab md-mini " style="background-color: green;" aria-label="success">
+          <md-icon md-svg-src="./resources/ic_check_white_24px.svg" ></md-icon>
+        </md-button>
+        <md-button class="md-raised md-warn" aria-label="add tournament" ng-click="uploadTournament()">
+            Upload List
+        </md-button>
+    </div>
 
   </md-content>
 

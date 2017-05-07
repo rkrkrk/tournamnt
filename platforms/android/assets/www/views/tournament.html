@@ -81,8 +81,19 @@
     <div layout="row" layout-align="end center">
         <md-button class="md-raised md-primary" ng-click="goHome()">List All Tournaments</md-button>
     <div layout="row" >-->
-  
-       
+
+
+       <div layout="row"  layout-align="end center"> 
+        <md-button ng-show="feck" class="md-fab md-mini " style="background-color: red;" aria-label="fail">
+          <md-icon md-svg-src="./resources/ic_error_white_24px.svg" ></md-icon>
+        </md-button>
+        <md-button ng-show="success" class="md-fab md-mini " style="background-color: green;" aria-label="success">
+          <md-icon md-svg-src="./resources/ic_check_white_24px.svg" ></md-icon>
+        </md-button>
+        <md-button class="md-raised md-warn" aria-label="add tournament" ng-click="uploadGroup()">
+              Upload Table/Results
+          </md-button>
+      </div>       
 
   </md-content>
 
